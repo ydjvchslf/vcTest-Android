@@ -1,36 +1,55 @@
 package com.example.vctest_android.retrofit
 
 import android.util.Log
+import com.example.vctest_android.dateModel.User
 import com.example.vctest_android.utill.Constants.Companion.BASE_URL
 import com.google.gson.JsonElement
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.HashMap
 
-class RetrofitManager {
+//object class 자체가 싱글턴패턴 (자기자신의 인스턴스를 리턴)
+object RetrofitManager {
 
     val TAG: String = "LOG"
 
-    companion object{
-        //스스로 자신의 인스턴스를 가져온다
-        val instance = RetrofitManager()
-    }
+    // ApiService 인터페이스 인스턴스 생성
+    val apiService : ApiService?= RetrofitClient.getClient(BASE_URL)?.create(ApiService::class.java)
 
-    val HttpCall : ApiService?= RetrofitClient.getClient(BASE_URL)?.create(ApiService::class.java)
+    // return 값이 없으니 ajax위해 콜백함수 적용
+    fun getTodo(callback: (HashMap<String, Any>) -> Unit){
 
-    fun getTodo(){
+        val resultMap = HashMap<String, Any>()
 
-        val call = HttpCall?.getUser()
+        val call: Call<User>? = apiService?.getUser()
 
-        call?.enqueue(object : retrofit2.Callback<JsonElement> {
-            override fun onResponse(call: Call<JsonElement>, response: Response<JsonElement>) {
-                Log.d(TAG, "RetrofitManager - getTodo() 호출 - OK~~~ / t : response -> ${response} , response.body() -> ${response.body()}")
-            }
+        call?.enqueue(object : retrofit2.Callback<User> {
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            Log.d(TAG, "[RetrofitManager] getTodo() 호출 : OK~ \n " +
+                                    "response -> $response \n" +
+                                    "response.body() -> ${response.body()} \n" + // Q. User가 객체인지, 아니면 dataModel거쳐온 User인지
+                                    "response.body().name -> ${response.body()?.name}")
 
-            override fun onFailure(call: Call<JsonElement>, t: Throwable) {
-                Log.d(TAG, "RetrofitManager - getTodo() 호출 - NO!!! / t : ${t}")
-            }
+                            resultMap["result"] = "ok"
+                            resultMap["user"] = response.body().toString() // Q. response.body() 를 넣을 순 없는가? type 뭐지?
+
+                            Log.d(TAG, "[RetrofitManager] resultMap.result -> ${resultMap["result"]}")
+                            Log.d(TAG, "[RetrofitManager] resultMap.user -> " + resultMap["user"])
+
+                            callback.invoke(resultMap)
+                        }
+
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            Log.d(TAG, "[RetrofitManager] getTodo() 호출 : NO!! \n t : $t")
+
+                            resultMap.put("result", "no")
+
+                            callback.invoke(resultMap)
+                        }
+
         })
     }
-
 
 }
