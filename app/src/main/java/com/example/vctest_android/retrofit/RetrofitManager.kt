@@ -1,6 +1,7 @@
 package com.example.vctest_android.retrofit
 
 import android.util.Log
+import com.example.vctest_android.utill.Constants.Companion.BASE_URL
 import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.Response
@@ -14,7 +15,7 @@ class RetrofitManager {
         val instance = RetrofitManager()
     }
 
-    val HttpCall : ApiService?= RetrofitClient.getClient("http://192.168.1.26:8081")?.create(ApiService::class.java)
+    val HttpCall : ApiService?= RetrofitClient.getClient(BASE_URL)?.create(ApiService::class.java)
 
     fun getTodo(){
 

@@ -5,31 +5,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:orientation="vertical"
-    android:layout_gravity="center">
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/get_method_btn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="GET 호출"/>
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/post_method_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="POST 호출"/>
+        <Button
+            android:id="@+id/get_method_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="GET"/>
 
-    <Button
-        android:id="@+id/put_method_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="PUT 호출"/>
+        <Button
+            android:id="@+id/post_method_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="POST"/>
 
-    <Button
-        android:id="@+id/delete_method_btn"
+        <Button
+            android:id="@+id/put_method_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="PUT"/>
+
+        <Button
+            android:id="@+id/delete_method_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="DELETE"/>>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="DELETE 호출"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="this is textView"
+            android:textSize="30sp" />
+
+    </LinearLayout>
 
 </LinearLayout>
