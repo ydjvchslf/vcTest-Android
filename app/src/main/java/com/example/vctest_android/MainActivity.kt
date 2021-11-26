@@ -2,12 +2,14 @@ package com.example.vctest_android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.Log.*
 import android.widget.Button
 import android.widget.TextView
-import com.example.vctest_android.dateModel.User
 import com.example.vctest_android.retrofit.RetrofitManager
+import android.content.Intent
+
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,8 +39,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.post_method_btn).setOnClickListener {
-            d(TAG, "[MainActivity] post() 호출")
+        findViewById<Button>(R.id.post_move_btn).setOnClickListener {
+            d(TAG, "[MainActivity] post_move_btn 클릭")
+
+            val intent = Intent(this, PostActivity::class.java)
+            startActivity(intent)
+
         }
 
         findViewById<Button>(R.id.put_method_btn).setOnClickListener {

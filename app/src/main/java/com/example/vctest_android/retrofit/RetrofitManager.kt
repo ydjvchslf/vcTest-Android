@@ -1,13 +1,12 @@
 package com.example.vctest_android.retrofit
 
 import android.util.Log
-import com.example.vctest_android.dateModel.User
+import com.example.vctest_android.model.Product
+import com.example.vctest_android.model.User
 import com.example.vctest_android.utill.Constants.Companion.BASE_URL
 import com.google.gson.JsonElement
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.collections.HashMap
 
 //object class 자체가 싱글턴패턴 (자기자신의 인스턴스를 리턴)
@@ -50,6 +49,29 @@ object RetrofitManager {
                         }
 
         })
+    }
+
+    fun postRequest(){
+
+        //mock data
+        val call: Call<Product>? = apiService?.createProduct(Product("title_test", 50000, "desc_test", "image_test", "cate_test"))
+
+        call?.enqueue(object : retrofit2.Callback<Product> {
+
+            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                Log.d(TAG, "[RetrofitManager] postRequest() 호출 : OK \n " +
+                                "response -> $response \n" +
+                                "response.body() -> ${response.body()} \n")
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+                Log.d(TAG, "[RetrofitManager] postRequest() 호출 : NO!! \n t : $t")
+
+            }
+
+
+        })
+
     }
 
 }
