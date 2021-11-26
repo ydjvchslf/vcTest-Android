@@ -68,9 +68,44 @@ object RetrofitManager {
                 Log.d(TAG, "[RetrofitManager] postRequest() 호출 : NO!! \n t : $t")
 
             }
+        })
+    }
 
+    fun putRequest(){
+
+        //mock data
+        val call: Call<Product>? = apiService?.updateProduct(7, Product("test1", 10, "test2", "test3", "test4"))
+
+        call?.enqueue(object : retrofit2.Callback<Product>{
+            override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                Log.d(TAG, "[RetrofitManager] putRequest() 호출 : OK \n " +
+                        "response -> $response \n" +
+                        "response.body() -> ${response.body()} \n")
+            }
+
+            override fun onFailure(call: Call<Product>, t: Throwable) {
+                Log.d(TAG, "[RetrofitManager] putRequest() 호출 : NO!! \n t : $t")
+            }
+        })
+    }
+
+    fun deleteRequest(){
+
+        val call: Call<Unit>? = apiService?.deleteProduct("6")
+
+        call?.enqueue(object : retrofit2.Callback<Unit>{
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                Log.d(TAG, "[RetrofitManager] deleteRequest() 호출 : OK \n " +
+                        "response -> $response \n" +
+                        "response.body() -> ${response.body()} \n")
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Log.d(TAG, "[RetrofitManager] deleteRequest() 호출 : NO!! \n t : $t")
+            }
 
         })
+
 
     }
 

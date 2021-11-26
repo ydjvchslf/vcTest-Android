@@ -49,10 +49,14 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.put_method_btn).setOnClickListener {
             d(TAG, "[MainActivity] put() 호출")
+
+            RetrofitManager.putRequest()
         }
 
         findViewById<Button>(R.id.delete_method_btn).setOnClickListener {
             d(TAG, "[MainActivity] delete() 호출")
+
+            RetrofitManager.deleteRequest()
         }
 
 
